@@ -1,0 +1,41 @@
+zkserver
+
+kafka-server-start.bat %KAFKA_HOME%\config\server.properties
+
+************************************************************************
+
+Zookeeper;
+docker run --name zookeeper -p 2181:2181 zookeeper
+
+Kafka;
+docker run --name kafka -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.8.148:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.8.148:9092 -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 confluentinc/cp-kafka
+
+
+************************************************************************
+
+
+Çekildikten sonra tekrardan çalıştırmak isterseniz
+şayet her iki cümle için;
+"--name kafka" yada "--name zookeeper"
+bilgilerini cikartmaniz gerekiyor.
+
+
+************************************************************************
+
+docker run -p 2181:2181 zookeeper
+
+************************************************************************
+
+8.148
+docker run -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.8.148:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.8.148:9092 -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 confluentinc/cp-kafka
+
+************************************************************************
+
+1.36
+isim tanımlı
+docker run --name kafka -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.1.36:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.1.36:9092 -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 confluentinc/cp-kafka
+isim tanımsız
+docker run -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=192.168.1.36:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.1.36:9092 -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 confluentinc/cp-kafka
+
+
+************************************************************************
